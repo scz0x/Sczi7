@@ -1,0 +1,174 @@
+# ===============================
+# Sczi7.com Portfolio - .gitignore
+# ===============================
+
+# OS Files
+# --------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db
+Thumbs.db:encryptable
+desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Editor & IDE Files
+# ------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.vs/
+*.sublime-project
+*.sublime-workspace
+.fleet/
+.atom/
+
+# Dependencies
+# ------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build & Distribution Files
+# ---------------------------
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+*.min.js
+*.min.css
+*.map
+
+# Environment Files (IMPORTANT!)
+# ------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+*.key
+*.pem
+config.local.js
+
+# Logs
+# ----
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary Files
+# ---------------
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+.#*
+
+# Test Coverage
+# -------------
+coverage/
+.nyc_output/
+*.lcov
+
+# macOS
+# -----
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+# -------
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+# -----
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Personal/Sensitive Files
+# ------------------------
+# Add any personal files you don't want to upload
+*.private
+*.secret
+credentials.json
+secrets.json
+
+# Large Files (if any)
+# --------------------
+# *.zip
+# *.rar
+# *.7z
+# *.tar.gz
+# *.psd
+# *.ai
+
+# ===============================
+# Project-Specific Ignores
+# ===============================
+
+# Old/Backup project folders
+astrofy-main/
+nuro.dev-main/
+responsive-portfolio-website-Ansel-main/
+
+# Generated files
+project_summary.txt
+
+# Temporary documentation (if any)
+*.draft.md
+*.wip.md
+
+# ===============================
+# Files to INCLUDE (Important!)
+# ===============================
+# These files SHOULD be uploaded:
+# - src/**/*
+# - index.html
+# - README.md
+# - *.md (all documentation)
+# - robots.txt
+# - sitemap.xml
+# - .gitignore (this file)
+
+# ===============================
+# Notes
+# ===============================
+# 1. CV.pdf is included (in src/assets/)
+# 2. Images are included (in src/assets/images/)
+# 3. All documentation files (.md) are included
+# 4. No sensitive data should be in this repo

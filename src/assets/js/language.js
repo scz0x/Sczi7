@@ -1,0 +1,363 @@
+// =============== LANGUAGE MANAGEMENT ===============
+
+class LanguageManager {
+    constructor() {
+        this.currentLang = localStorage.getItem('language') || 'en';
+        this.init();
+    }
+
+    init() {
+        // Set initial language
+        this.setLanguage(this.currentLang);
+
+        // Setup language toggle button
+        const langToggle = document.getElementById('langToggle');
+        if (langToggle) {
+            langToggle.addEventListener('click', () => this.toggleLanguage());
+        }
+
+        // Add language-specific font if Arabic
+        if (this.currentLang === 'ar') {
+            this.loadArabicFont();
+        }
+    }
+
+    toggleLanguage() {
+        this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
+        this.setLanguage(this.currentLang);
+        localStorage.setItem('language', this.currentLang);
+    }
+
+    setLanguage(lang) {
+        const html = document.documentElement;
+        const langText = document.querySelector('.lang-text');
+
+        // Update HTML attributes
+        html.setAttribute('lang', lang);
+        html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+        // Update toggle button text
+        if (langText) {
+            langText.textContent = lang === 'en' ? 'AR' : 'EN';
+        }
+
+        // Translate all elements
+        this.translatePage(lang);
+
+        // Update body class for styling
+        document.body.classList.toggle('rtl', lang === 'ar');
+        document.body.classList.toggle('ltr', lang === 'en');
+
+        // Update meta tags
+        this.updateMetaTags(lang);
+
+        // Load Arabic font if needed
+        if (lang === 'ar') {
+            this.loadArabicFont();
+        }
+    }
+
+    translatePage(lang) {
+        const elements = {
+            // Navigation
+            '.nav-link[data-translate="nav_home"]': 'nav_home',
+            '.nav-link[data-translate="nav_about"]': 'nav_about',
+            '.nav-link[data-translate="nav_experience"]': 'nav_experience',
+            '.nav-link[data-translate="nav_skills"]': 'nav_skills',
+            '.nav-link[data-translate="nav_education"]': 'nav_education',
+            '.nav-link[data-translate="nav_contact"]': 'nav_contact',
+
+            // Hero Section
+            '.greeting': 'hero_greeting',
+            '.hero-title': 'hero_name',
+            '.hero-subtitle': 'hero_title',
+            '.hero-description': 'hero_description',
+
+            // About Section
+            '#about .section-title': 'about_title',
+            '.about-text h3': 'about_heading',
+            '.stat-item:nth-child(1) p': 'stat_years',
+            '.stat-item:nth-child(2) p': 'stat_satisfaction',
+            '.stat-item:nth-child(3) p': 'stat_uptime',
+            '.stat-item:nth-child(4) p': 'stat_reduction',
+
+            // Experience Section
+            '#experience .section-title': 'experience_title',
+
+            // Skills Section
+            '#skills .section-title': 'skills_title',
+
+            // Education Section
+            '#education .section-title': 'education_title',
+            '.edu-info h3': 'edu_degree',
+            '.edu-info h4': 'edu_institution',
+
+            // Contact Section
+            '#contact .section-title': 'contact_title',
+            '.contact-info h3': 'contact_heading',
+            '.contact-info > p': 'contact_description',
+            '.cv-download-section h4': 'contact_download_title',
+
+            // Footer
+            '.footer-content p': 'footer_rights',
+        };
+
+        // Translate simple text elements
+        for (const [selector, key] of Object.entries(elements)) {
+            const element = document.querySelector(selector);
+            if (element && translations[lang][key]) {
+                element.textContent = translations[lang][key];
+            }
+        }
+
+        // Translate buttons
+        this.translateButtons(lang);
+
+        // Translate About paragraphs
+        this.translateAbout(lang);
+
+        // Translate Experience items
+        this.translateExperience(lang);
+
+        // Translate Skills
+        this.translateSkills(lang);
+
+        // Translate Education
+        this.translateEducation(lang);
+
+        // Translate Contact
+        this.translateContact(lang);
+    }
+
+    translateButtons(lang) {
+        const contactBtn = document.querySelector('.btn-primary');
+        if (contactBtn) {
+            contactBtn.innerHTML = `<i class="fas fa-envelope"></i> ${translations[lang].btn_contact}`;
+        }
+
+        const downloadBtn = document.querySelector('.btn-secondary');
+        if (downloadBtn) {
+            downloadBtn.innerHTML = `<i class="fas fa-download"></i> ${translations[lang].btn_download_cv}`;
+        }
+
+        const downloadBtn2 = document.querySelector('.btn-download');
+        if (downloadBtn2) {
+            downloadBtn2.innerHTML = `<i class="fas fa-file-pdf"></i> ${translations[lang].contact_download_btn}`;
+        }
+    }
+
+    translateAbout(lang) {
+        const paragraphs = document.querySelectorAll('.about-text p');
+        if (paragraphs[0]) paragraphs[0].textContent = translations[lang].about_p1;
+        if (paragraphs[1]) paragraphs[1].textContent = translations[lang].about_p2;
+    }
+
+    translateExperience(lang) {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        // Experience 1
+        if (timelineItems[0]) {
+            const date1 = timelineItems[0].querySelector('.timeline-date');
+            const title1 = timelineItems[0].querySelector('h3');
+            const company1 = timelineItems[0].querySelector('h4');
+            const items1 = timelineItems[0].querySelectorAll('li');
+
+            if (date1) date1.textContent = translations[lang].exp1_date;
+            if (title1) title1.textContent = translations[lang].exp1_position;
+            if (company1) company1.textContent = translations[lang].exp1_company;
+            if (items1[0]) items1[0].textContent = translations[lang].exp1_desc1;
+            if (items1[1]) items1[1].textContent = translations[lang].exp1_desc2;
+            if (items1[2]) items1[2].textContent = translations[lang].exp1_desc3;
+            if (items1[3]) items1[3].textContent = translations[lang].exp1_desc4;
+            if (items1[4]) items1[4].textContent = translations[lang].exp1_desc5;
+        }
+
+        // Experience 2
+        if (timelineItems[1]) {
+            const date2 = timelineItems[1].querySelector('.timeline-date');
+            const title2 = timelineItems[1].querySelector('h3');
+            const company2 = timelineItems[1].querySelector('h4');
+            const items2 = timelineItems[1].querySelectorAll('li');
+
+            if (date2) date2.textContent = translations[lang].exp2_date;
+            if (title2) title2.textContent = translations[lang].exp2_position;
+            if (company2) company2.textContent = translations[lang].exp2_company;
+            if (items2[0]) items2[0].textContent = translations[lang].exp2_desc1;
+            if (items2[1]) items2[1].textContent = translations[lang].exp2_desc2;
+            if (items2[2]) items2[2].textContent = translations[lang].exp2_desc3;
+            if (items2[3]) items2[3].textContent = translations[lang].exp2_desc4;
+            if (items2[4]) items2[4].textContent = translations[lang].exp2_desc5;
+        }
+
+        // Experience 3
+        if (timelineItems[2]) {
+            const date3 = timelineItems[2].querySelector('.timeline-date');
+            const title3 = timelineItems[2].querySelector('h3');
+            const company3 = timelineItems[2].querySelector('h4');
+            const items3 = timelineItems[2].querySelectorAll('li');
+
+            if (date3) date3.textContent = translations[lang].exp3_date;
+            if (title3) title3.textContent = translations[lang].exp3_position;
+            if (company3) company3.textContent = translations[lang].exp3_company;
+            if (items3[0]) items3[0].textContent = translations[lang].exp3_desc1;
+            if (items3[1]) items3[1].textContent = translations[lang].exp3_desc2;
+            if (items3[2]) items3[2].textContent = translations[lang].exp3_desc3;
+            if (items3[3]) items3[3].textContent = translations[lang].exp3_desc4;
+            if (items3[4]) items3[4].textContent = translations[lang].exp3_desc5;
+        }
+    }
+
+    translateSkills(lang) {
+        const skillCategories = document.querySelectorAll('.skill-category');
+
+        // Technical Skills
+        if (skillCategories[0]) {
+            const heading = skillCategories[0].querySelector('h3');
+            if (heading) {
+                heading.innerHTML = `<i class="fas fa-code"></i> ${translations[lang].skills_technical}`;
+            }
+
+            const tags = skillCategories[0].querySelectorAll('.skill-tag');
+            const skillKeys = [
+                'skill_it_infra', 'skill_support', 'skill_network', 'skill_updates',
+                'skill_hardware', 'skill_field', 'skill_programming', 'skill_config', 'skill_docs'
+            ];
+            tags.forEach((tag, i) => {
+                if (translations[lang][skillKeys[i]]) {
+                    tag.textContent = translations[lang][skillKeys[i]];
+                }
+            });
+        }
+
+        // Soft Skills
+        if (skillCategories[1]) {
+            const heading = skillCategories[1].querySelector('h3');
+            if (heading) {
+                heading.innerHTML = `<i class="fas fa-users"></i> ${translations[lang].skills_soft}`;
+            }
+
+            const tags = skillCategories[1].querySelectorAll('.skill-tag');
+            const skillKeys = [
+                'skill_leadership', 'skill_training', 'skill_problem',
+                'skill_communication', 'skill_customer'
+            ];
+            tags.forEach((tag, i) => {
+                if (translations[lang][skillKeys[i]]) {
+                    tag.textContent = translations[lang][skillKeys[i]];
+                }
+            });
+        }
+
+        // Certifications
+        if (skillCategories[2]) {
+            const heading = skillCategories[2].querySelector('h3');
+            if (heading) {
+                heading.innerHTML = `<i class="fas fa-certificate"></i> ${translations[lang].skills_certs}`;
+            }
+
+            const certs = skillCategories[2].querySelectorAll('.cert-item');
+            if (certs[0]) {
+                const h4 = certs[0].querySelector('h4');
+                const p = certs[0].querySelector('p');
+                if (h4) h4.textContent = translations[lang].cert1_title;
+                if (p) p.textContent = translations[lang].cert1_org;
+            }
+            if (certs[1]) {
+                const h4 = certs[1].querySelector('h4');
+                const p = certs[1].querySelector('p');
+                if (h4) h4.textContent = translations[lang].cert2_title;
+                if (p) p.textContent = translations[lang].cert2_org;
+            }
+            if (certs[2]) {
+                const h4 = certs[2].querySelector('h4');
+                const p = certs[2].querySelector('p');
+                if (h4) h4.textContent = translations[lang].cert3_title;
+                if (p) p.textContent = translations[lang].cert3_org;
+            }
+        }
+    }
+
+    translateEducation(lang) {
+        const locationP = document.querySelector('.edu-location');
+        const dateP = document.querySelector('.edu-date');
+
+        if (locationP) {
+            locationP.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${translations[lang].edu_location}`;
+        }
+        if (dateP) {
+            dateP.innerHTML = `<i class="fas fa-calendar"></i> ${translations[lang].edu_year}`;
+        }
+    }
+
+    translateContact(lang) {
+        const contactItems = document.querySelectorAll('.contact-item');
+
+        // Email
+        if (contactItems[0]) {
+            const h4 = contactItems[0].querySelector('h4');
+            if (h4) h4.textContent = translations[lang].contact_email;
+        }
+
+        // LinkedIn
+        if (contactItems[1]) {
+            const h4 = contactItems[1].querySelector('h4');
+            if (h4) h4.textContent = translations[lang].contact_linkedin;
+        }
+
+        // Location
+        if (contactItems[2]) {
+            const h4 = contactItems[2].querySelector('h4');
+            const p = contactItems[2].querySelector('p');
+            if (h4) h4.textContent = translations[lang].contact_location;
+            if (p) p.textContent = translations[lang].contact_location_value;
+        }
+    }
+
+
+
+    updateMetaTags(lang) {
+        const title = lang === 'ar'
+            ? 'أحمد الزهراني - مهندس دعم ميداني | Sczi7.com'
+            : 'Ahmed Alzahrani - Field Support Engineer | Sczi7.com';
+
+        const description = lang === 'ar'
+            ? 'أحمد الزهراني - مهندس دعم ميداني بخبرة تزيد عن 7 سنوات في البنية التحتية لتقنية المعلومات والدعم الفني وتطوير البرمجيات.'
+            : 'Ahmed Alzahrani - Field Support Engineer with 7+ years of experience in IT infrastructure, technical support, and software development.';
+
+        document.title = title;
+
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', description);
+
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', title);
+
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', description);
+    }
+
+    loadArabicFont() {
+        // Add Google Font for Arabic (Tajawal or Cairo)
+        const existingLink = document.querySelector('link[href*="Cairo"]');
+        if (!existingLink) {
+            const link = document.createElement('link');
+            link.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap';
+            link.rel = 'stylesheet';
+            document.head.appendChild(link);
+
+            // Apply Arabic font
+            document.documentElement.style.setProperty('--font-primary', "'Cairo', 'Poppins', sans-serif");
+        }
+    }
+}
+
+// Initialize language manager when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.languageManager = new LanguageManager();
+    });
+} else {
+    window.languageManager = new LanguageManager();
+}
+
+console.log('%c🌐 Multi-language support enabled!', 'color: #10b981; font-size: 14px; font-weight: bold;');
