@@ -153,6 +153,14 @@ project_summary.txt
 *.draft.md
 *.wip.md
 
+# Deprecated/Merged files
+CLEANUP_SUMMARY.md
+FAVICON_SUMMARY.md
+GITHUB_GUIDE.md
+NEXT_STEPS.md
+SUCCESS.md
+UPDATE_LOG.md
+
 # ===============================
 # Files to INCLUDE (Important!)
 # ===============================

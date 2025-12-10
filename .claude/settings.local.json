@@ -7,7 +7,12 @@
       "Bash(git --version:*)",
       "Bash(git init:*)",
       "Bash(git config:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n🎉 Initial commit - Professional Portfolio Website\n\n✨ Features:\n- Professional portfolio showcasing 7+ years of experience\n- Multi-language support (English/Arabic) with RTL\n- Fully responsive design (mobile, tablet, desktop)\n- Modern UI with smooth animations and transitions\n- SEO optimized with meta tags and Open Graph\n- Complete favicon system ready for implementation\n- Comprehensive documentation in Arabic and English\n\n📚 Documentation:\n- README.md - Main project documentation\n- IMPROVEMENTS.md - Recommended enhancements guide\n- CLEANUP_SUMMARY.md - Project cleanup summary\n- FAVICON_SUMMARY.md - Complete favicon implementation guide\n- UPDATE_LOG.md - Detailed update log\n- GITHUB_GUIDE.md - GitHub setup and deployment guide\n\n🛠️ Tech Stack:\n- HTML5, CSS3 (Custom Properties, Grid, Flexbox)\n- JavaScript ES6+ (Vanilla JS, no frameworks)\n- Font Awesome 6.5.1 for icons\n- Google Fonts (Poppins family)\n- Multi-language system with localStorage\n\n🎨 Design:\n- Dark theme with gradient accents (#6366f1 → #0ea5e9)\n- Smooth scroll animations and parallax effects\n- Interactive timeline for experience\n- Animated statistics counters\n- Skill tags with hover effects\n\n📱 Sections:\n- Hero section with profile and CTA\n- About with professional statistics\n- Experience timeline (3 positions)\n- Skills showcase (technical, soft, certifications)\n- Education information\n- Contact section with social links\n\n🌐 Deployment Ready:\n- GitHub Pages compatible\n- robots.txt and sitemap.xml included\n- Favicon system prepared\n- All assets organized\n\n🤖 Generated with Claude Code\nhttps://claude.com/claude-code\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(git remote add:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []
