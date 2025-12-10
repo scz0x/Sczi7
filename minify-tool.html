@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS/JS Minifier - Sczi7.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #6366f1, #0ea5e9);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #6366f1;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .file-selector {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #334155;
+        }
+        select, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        select:focus, input[type="file"]:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        button {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+        }
+        .stat-card h3 {
+            font-size: 28px;
+            color: #6366f1;
+            margin-bottom: 5px;
+        }
+        .stat-card p {
+            font-size: 14px;
+            color: #64748b;
+        }
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        .alert.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        .alert-success {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            color: #065f46;
+        }
+        .alert-error {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .footer {
+            background: #f8fafc;
+            padding: 20px;
+            text-align: center;
+            color: #64748b;
+            border-top: 2px solid #e2e8f0;
+        }
+        .instructions {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .instructions h3 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            color: #78350f;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 CSS & JavaScript Minifier</h1>
+            <p>Optimize your website files for better performance</p>
+        </div>
+
+        <div class="content">
+            <div class="instructions">
+                <h3>📌 How to Use:</h3>
+                <ol>
+                    <li>Select file type (CSS or JavaScript)</li>
+                    <li>Load your file or paste code in the input area</li>
+                    <li>Click "Minify Code" to compress</li>
+                    <li>Download the minified version</li>
+                </ol>
+            </div>
+
+            <div id="alert" class="alert"></div>
+
+            <div class="section">
+                <h2>Select File Type</h2>
+                <div class="file-selector">
+                    <label for="fileType">File Type:</label>
+                    <select id="fileType">
+                        <option value="css">CSS</option>
+                        <option value="js">JavaScript</option>
+                    </select>
+                </div>
+                <div class="file-selector">
+                    <label for="fileInput">Load File (Optional):</label>
+                    <input type="file" id="fileInput" accept=".css,.js">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Input Code</h2>
+                <textarea id="inputCode" placeholder="Paste your CSS or JavaScript code here..."></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="minifyCode()">
+                    ⚡ Minify Code
+                </button>
+                <button class="btn-secondary" onclick="clearAll()">
+                    🔄 Clear All
+                </button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="originalSize">0</h3>
+                    <p>Original Size (KB)</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="minifiedSize">0</h3>
+                    <p>Minified Size (KB)</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="savedSize">0%</h3>
+                    <p>Size Reduction</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Minified Code</h2>
+                <textarea id="outputCode" placeholder="Minified code will appear here..." readonly></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-success" onclick="downloadMinified()">
+                    💾 Download Minified File
+                </button>
+                <button class="btn-secondary" onclick="copyToClipboard()">
+                    📋 Copy to Clipboard
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Sczi7.com Minifier Tool</strong> | Created for optimizing portfolio assets</p>
+            <p style="margin-top: 10px; font-size: 12px;">Minification improves loading speed and reduces bandwidth usage</p>
+        </div>
+    </div>
+
+    <script>
+        // Load file when selected
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('inputCode').value = event.target.result;
+                    showAlert(`File "${file.name}" loaded successfully!`, 'success');
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function minifyCode() {
+            const input = document.getElementById('inputCode').value;
+            const fileType = document.getElementById('fileType').value;
+
+            if (!input.trim()) {
+                showAlert('Please enter or load code to minify!', 'error');
+                return;
+            }
+
+            let minified;
+
+            if (fileType === 'css') {
+                minified = minifyCSS(input);
+            } else {
+                minified = minifyJS(input);
+            }
+
+            document.getElementById('outputCode').value = minified;
+
+            // Calculate stats
+            const originalSize = (new Blob([input]).size / 1024).toFixed(2);
+            const minifiedSize = (new Blob([minified]).size / 1024).toFixed(2);
+            const reduction = ((1 - minifiedSize / originalSize) * 100).toFixed(1);
+
+            document.getElementById('originalSize').textContent = originalSize;
+            document.getElementById('minifiedSize').textContent = minifiedSize;
+            document.getElementById('savedSize').textContent = reduction + '%';
+
+            showAlert(`Code minified successfully! Saved ${reduction}% of file size.`, 'success');
+        }
+
+        function minifyCSS(css) {
+            // Remove comments
+            css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+            // Remove whitespace
+            css = css.replace(/\s+/g, ' ');
+            // Remove spaces around special characters
+            css = css.replace(/\s*([{}:;,>+~])\s*/g, '$1');
+            // Remove last semicolon in blocks
+            css = css.replace(/;}/g, '}');
+            // Remove space after colons
+            css = css.replace(/:\s/g, ':');
+            // Remove space before {
+            css = css.replace(/\s*{\s*/g, '{');
+            // Trim
+            css = css.trim();
+            return css;
+        }
+
+        function minifyJS(js) {
+            // Remove single-line comments (// ...)
+            js = js.replace(/\/\/.*$/gm, '');
+            // Remove multi-line comments (/* ... */)
+            js = js.replace(/\/\*[\s\S]*?\*\//g, '');
+            // Remove extra whitespace
+            js = js.replace(/\s+/g, ' ');
+            // Remove spaces around operators (careful with certain cases)
+            js = js.replace(/\s*([=+\-*/<>!&|?:,;{}()\[\]])\s*/g, '$1');
+            // Remove space after function keyword
+            js = js.replace(/function\s+/g, 'function ');
+            // Remove unnecessary semicolons before }
+            js = js.replace(/;\s*}/g, '}');
+            // Trim
+            js = js.trim();
+            return js;
+        }
+
+        function downloadMinified() {
+            const output = document.getElementById('outputCode').value;
+
+            if (!output.trim()) {
+                showAlert('Please minify code first!', 'error');
+                return;
+            }
+
+            const fileType = document.getElementById('fileType').value;
+            const extension = fileType === 'css' ? '.min.css' : '.min.js';
+            const filename = 'minified' + extension;
+
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showAlert(`File "${filename}" downloaded successfully!`, 'success');
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('outputCode');
+
+            if (!output.value.trim()) {
+                showAlert('No minified code to copy!', 'error');
+                return;
+            }
+
+            output.select();
+            document.execCommand('copy');
+            showAlert('Minified code copied to clipboard!', 'success');
+        }
+
+        function clearAll() {
+            document.getElementById('inputCode').value = '';
+            document.getElementById('outputCode').value = '';
+            document.getElementById('originalSize').textContent = '0';
+            document.getElementById('minifiedSize').textContent = '0';
+            document.getElementById('savedSize').textContent = '0%';
+            document.getElementById('fileInput').value = '';
+            showAlert('All fields cleared!', 'success');
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
