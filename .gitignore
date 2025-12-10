@@ -153,13 +153,18 @@ project_summary.txt
 *.draft.md
 *.wip.md
 
-# Deprecated/Merged files
+# Deprecated/Merged files (Cleaned up in v2.1.0)
 CLEANUP_SUMMARY.md
 FAVICON_SUMMARY.md
 GITHUB_GUIDE.md
 NEXT_STEPS.md
 SUCCESS.md
 UPDATE_LOG.md
+OPTIMIZATION_GUIDE.md
+OPTIMIZATION_SUMMARY.md
+PWA_SETUP.md
+SUMMARY.md
+DOCUMENTATION.md
 
 # ===============================
 # Files to INCLUDE (Important!)
