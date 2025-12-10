@@ -3,7 +3,6 @@
 [![Website](https://img.shields.io/badge/Website-sczi7.com-blue?style=flat-square)](https://sczi7.com)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=flat-square)](LICENSE)
 
-![Portfolio Preview](src/assets/images/MyPhoto.jpg)
 
 Welcome to my professional portfolio website! This repository contains the source code for my personal portfolio showcasing my experience, skills, and professional journey as a Field Support Engineer with 7+ years of experience.
 
